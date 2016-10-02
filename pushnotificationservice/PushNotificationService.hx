@@ -19,6 +19,9 @@ class PushNotificationService {
 
 	public static var pushnotificationservice_firebaseInit_jni : Dynamic;
 
+	private static var pushnotificationservice_initialize;
+   //private static var pushnotifications_setcallback;
+
 	public static function Initialize() : Void {
 		try {
 			#if android
@@ -27,6 +30,8 @@ class PushNotificationService {
 			#end
 			#if cpp
 				// TODO iOS method
+				pushnotificationservice_initialize = Lib.load ("pushnotificationservice", "pushnotificationservice_initialize", 0);
+				//pushnotifications_setcallback = Lib.load("pushnotifications", "pushnotifications_setcallback", 1);
 			#end
 		} catch(e:Dynamic) {
 			trace(e);
@@ -44,7 +49,8 @@ class PushNotificationService {
 				return "";
 			}
 		#elseif (cpp && mobile)
-//			return pushnotificationservice_getPushID();
+			// return pushnotificationservice_initialize();
+			return null;
 		#end
 	}
 
@@ -56,6 +62,7 @@ class PushNotificationService {
 					trace("Error: PushNotificationService doesn't initialized");
 				}
 		#elseif (cpp && mobile)
+			pushnotificationservice_initialize();
 		#end
 	}
 }

@@ -3,11 +3,7 @@
 
 
 namespace pushnotificationservice {
-	
-	
-	int SampleMethod(int inputValue);
-	
-	
+    void Initialize();
 }
 
 

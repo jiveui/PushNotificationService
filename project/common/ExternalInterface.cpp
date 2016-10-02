@@ -10,28 +10,17 @@
 #include <hx/CFFI.h>
 #include "Utils.h"
 
-
-using namespace pushnotificationservice;
-
-
-
-static value pushnotificationservice_sample_method (value inputValue) {
-	
-	int returnValue = SampleMethod(val_int(inputValue));
-	return alloc_int(returnValue);
-	
+static void pushnotificationservice_initialize()
+{
+    pushnotificationservice::Initialize();
 }
-DEFINE_PRIM (pushnotificationservice_sample_method, 1);
-
+DEFINE_PRIM(pushnotificationservice_initialize, 0);
 
 
 extern "C" void pushnotificationservice_main () {
-	
-	val_int(0); // Fix Neko init
-	
+
+    val_int(0); // Fix Neko init
+
 }
 DEFINE_ENTRY_POINT (pushnotificationservice_main);
-
-
-
 extern "C" int pushnotificationservice_register_prims () { return 0; }

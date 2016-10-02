@@ -5,9 +5,10 @@
 	<files id="common">
 		
 		<compilerflag value="-Iinclude"/>
-		
+		<compilerflag value="-I../../extensionkit/project/include"/>
+
 		<file name="common/ExternalInterface.cpp"/>
-		<file name="common/PushNotificationService.cpp"/>
+		<file name="common/PushNotificationService.mm"/>
 		
 	</files>
 	
