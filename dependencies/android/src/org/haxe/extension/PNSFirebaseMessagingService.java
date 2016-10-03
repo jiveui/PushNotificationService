@@ -4,6 +4,7 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 import org.haxe.extension.extensionkit.Trace;
+import org.haxe.extension.extensionkit.HaxeCallback;
 
 public class PNSFirebaseMessagingService extends FirebaseMessagingService {
     /**
@@ -35,6 +36,14 @@ public class PNSFirebaseMessagingService extends FirebaseMessagingService {
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
             Trace.Error("Message Notification Body: " + remoteMessage.getNotification().getBody());
+
+            HaxeCallback.DispatchEventToHaxe("pushnotificationservice.PushNotificationServiceEvent",
+                    new Object[]{
+                            "message_received",
+                            "",
+                            remoteMessage.getNotification().getBody()
+                    }
+            );
         }
     }
 }
