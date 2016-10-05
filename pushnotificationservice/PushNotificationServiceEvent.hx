@@ -14,7 +14,7 @@ class PushNotificationServiceEvent extends Event {
         super(type, true, true);
 
         this.token = token;
-        this.receivedMeassage = receivedMeassage;
+        this.receivedMeassage = receivedMessage;
     }
 
     public override function clone() : Event {
