@@ -57,6 +57,32 @@ static char g_buffer[2048];
 
     }
 
+    -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo 
+    {
+        NSLog(@"didReceiveRemoteNotification");
+
+        NSString *msg = [NSString stringWithFormat:@"Your App name received this notification while it was running:\n%@", [[userInfo objectForKey:@"aps"] objectForKey:@"alert"]];
+
+        NSLog(@"%@", msg);
+
+        [msg getCString:g_buffer maxLength:sizeof(g_buffer)/sizeof(*g_buffer) encoding:NSUTF8StringEncoding];
+
+        extensionkit::DispatchEventToHaxe("pushnotificationservice.PushNotificationServiceEvent",
+              extensionkit::CSTRING, "message_received",
+              extensionkit::CSTRING, "",
+              extensionkit::CSTRING, g_buffer,
+              extensionkit::CEND);
+
+         // HaxeCallback.DispatchEventToHaxe("pushnotificationservice.PushNotificationServiceEvent",
+         //            new Object[]{
+         //                    "message_received",
+         //                    "",
+         //                    remoteMessage.getNotification().getBody()
+         //            }
+         //    );
+    }
+
+
     - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
     {
         NSLog(@"Failed to get token, error: %@", error);
